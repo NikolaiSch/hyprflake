@@ -1,7 +1,6 @@
 { lib, stylix, config,  ... }:
 let 
-  cfg = config.systemColoring
-;
+  cfg = config.systemColoring;
 in
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
