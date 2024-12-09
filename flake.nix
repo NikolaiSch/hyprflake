@@ -15,7 +15,7 @@
       self,
       nixpkgs,
       home-manager,
-      hardware,
+      nixos-hardware,
       ...
     }@inputs:
     let
