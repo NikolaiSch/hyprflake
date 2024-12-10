@@ -22,6 +22,8 @@
     };
 
     hyprland.url = "github:hyprwm/hyprland";
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs =
@@ -73,6 +75,7 @@
           };
           modules = [
             nixos-hardware.nixosModules.msi.gl62
+            stylix.nixosModules.stylix
             ./nixos/configuration.nix
           ];
         };
@@ -86,7 +89,8 @@
             inherit inputs outputs;
           };
           modules = [
-            stylix.nixosModules.stylix
+            chaotic.homeManagerModules.default
+
             ./home-manager/home.nix
           ];
         };
