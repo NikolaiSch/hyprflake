@@ -3,10 +3,8 @@
   stylix,
   config,
   ...
-}:
-
-{
-  imports = [ stylix.nixosModules.stylix ];
+}: {
+  imports = [stylix.nixosModules.stylix];
 
   options = {
     systemColoring.wallpaperPath = lib.mkOption {
