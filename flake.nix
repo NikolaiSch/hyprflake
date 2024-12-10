@@ -22,8 +22,6 @@
     };
 
     hyprland.url = "github:hyprwm/hyprland";
-
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs =
@@ -32,7 +30,6 @@
       nixpkgs,
       home-manager,
       nixos-hardware,
-      stylix,
       ...
     }@inputs:
     let
@@ -49,10 +46,6 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-
-      #check with statix and deadnix
-      check = forAllSystems (system: nixpkgs.legacyPackages.${system}.statix);
-
       # Your custom packages
       # Accessible through 'nix build', 'nix shell', etc
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
@@ -75,7 +68,6 @@
           };
           modules = [
             nixos-hardware.nixosModules.msi.gl62
-            stylix.nixosModules.stylix
             ./nixos/configuration.nix
           ];
         };
@@ -88,11 +80,7 @@
           extraSpecialArgs = {
             inherit inputs outputs;
           };
-          modules = [
-            chaotic.homeManagerModules.default
-
-            ./home-manager/home.nix
-          ];
+          modules = [ ./home-manager/home.nix ];
         };
       };
     };
