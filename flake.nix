@@ -3,11 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    hardware.url = "github:nix-community/nixos-hardware";
   };
 
-  outputs =
-    { self, nixpkgs }:
-    {
-      packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.hello;
-    };
+  outputs = { self, nixpkgs }: { };
 }
