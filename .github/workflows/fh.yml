@@ -1,0 +1,27 @@
+# https://github.com/wimpysworld/nix-config/blob/main/.github/workflows/fh.yml
+
+name: Build 🏗️ and Cache ❄️
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      # my new default branch
+    - "v2"
+    tags:
+    - "v2-[0-9]+.[0-9]+*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  RUST_BACKTRACE: full
+
+jobs:
+  DeterminateCI:
+    name: Determinate CI 👷
+    uses: DeterminateSystems/ci/.github/workflows/workflow.yml@main
+    permissions:
+      id-token: "write"
+      contents: "read"
