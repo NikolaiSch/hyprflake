@@ -6,6 +6,10 @@ on:
     - cron: '00 00 * * 0,2,4,6'
   workflow_dispatch:
 
+env:
+  RUST_BACKTRACE: full
+
+
 jobs:
   lock-updater:
     name: Flake Lock Updater

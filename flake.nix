@@ -24,6 +24,7 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/gp62
+            # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
