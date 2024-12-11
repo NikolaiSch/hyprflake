@@ -21,23 +21,23 @@
     let
       inherit (inputs) outputs;
       stateVersion = "24.11";
-      helper = import ./lib { inherit inputs outputs stateVersion; };
     in
     {
       nixosConfigurations = {
         gp62 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = [
-            ./hosts/gp62
-            # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
-              home-manager.users.vii = import ./vii.nix;
-            }
-          ];
+          modules = [ ./hosts/gp62 ];
+          stateVersion = stateVersion;
+        };
+      };
+
+      homeConfigurations = {
+        "vii@gp62" = home-manager.lib.homeManagerConfiguration {
+          stateVersion = stateVersion;
+          homeDirectory = "/home/vii";
+          configuration = {
+            imports = [ ./home ];
+          };
         };
       };
     };

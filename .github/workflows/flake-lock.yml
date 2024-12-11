@@ -3,31 +3,23 @@ name: Flake ❄️ Lock 🔒️ Updater ✨
 
 on:
   schedule:
-    - cron: '*/4 * * * 0,2,4,6'
+    - cron: "*/4 * * * 0,2,4,6"
+  push:
+    branches:
+      - "v2"
+  pull_request:
   workflow_dispatch:
 
-env:
-  RUST_BACKTRACE: full
-
-
 jobs:
-  lock-updater:
+  check:
     name: Flake Lock Updater
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write
+      id-token: "write"
+      contents: "read"
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
-        with:
-          determinate: true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - uses: DeterminateSystems/update-flake-lock@v24
-        with:
-          pr-title: "chore: update flake.lock"
-          # Labels to be set on the PR
-          pr-labels: |
-            dependencies
-            automated
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/update-flake-lock@main
