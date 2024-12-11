@@ -18,10 +18,11 @@
       home-manager,
       ...
     }@inputs:
-    let 
-        inherit (inputs) outputs;
-        stateVersion = "24.11";
-        helper = import ./lib { inherit inputs outputs stateVersion; };
+    let
+      inherit (inputs) outputs;
+      stateVersion = "24.11";
+      helper = import ./lib { inherit inputs outputs stateVersion; };
+    in
     {
       nixosConfigurations = {
         gp62 = nixpkgs.lib.nixosSystem {
