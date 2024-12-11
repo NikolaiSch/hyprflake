@@ -4,20 +4,20 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    nixos-hardware.url = "github:nix-community/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       nixos-hardware,
       home-manager,
       ...
-    }@inputs:
+    }:
     {
       nixosConfigurations = {
         gp62 = nixpkgs.lib.nixosSystem {
