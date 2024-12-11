@@ -23,9 +23,9 @@
         modules = [ ./hosts/gp62 ];
       };
 
-      homeConfigurations."nikolai@gp62" = {
-        system = "x86_64-linux";
-        modules = [ ];
-      };
+      # homeConfigurations."nikolai@gp62" = {
+      #   system = "x86_64-linux";
+      #   modules = [ ];
+      # };
     };
 }
