@@ -11,12 +11,17 @@
   };
 
   outputs =
-    inputs@{
+    {
+      self,
       nixpkgs,
       nixos-hardware,
       home-manager,
       ...
-    }:
+    }@inputs:
+    let 
+        inherit (inputs) outputs;
+        stateVersion = "24.11";
+        helper = import ./lib { inherit inputs outputs stateVersion; };
     {
       nixosConfigurations = {
         gp62 = nixpkgs.lib.nixosSystem {
