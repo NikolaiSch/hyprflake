@@ -22,6 +22,7 @@
         gp62 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            inherit (inputs);
             ./hosts/gp62
             # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             home-manager.nixosModules.home-manager
