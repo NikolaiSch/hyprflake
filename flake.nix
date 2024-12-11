@@ -25,11 +25,12 @@
             ./hosts/gp62
             # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             home-manager.nixosModules.home-manager
-            # {
-            #   home-manager.useGlobalPkgs = true;
-            #   home-manager.useUserPackages = true;
-            #   home-manager.users.vii = import ./vii.nix;
-            # }
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = inputs;
+              home-manager.users.vii = import ./vii.nix;
+            }
           ];
         };
       };
