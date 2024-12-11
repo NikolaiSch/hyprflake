@@ -20,7 +20,7 @@
     {
       nixosConfigurations.gp62 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./hosts/gp62/default.nix ];
+        modules = [ ./hosts/gp62 ];
       };
 
       homeConfigurations."nikolai@gp62" = {
