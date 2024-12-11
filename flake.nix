@@ -2,8 +2,9 @@
   description = "hyprflake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixos-hardware.url = "github:nix-community/nixos-hardware/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixos-hardware.url = "github:nix-community/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,16 +19,19 @@
       ...
     }@inputs:
     {
-      nixosConfigurations.gp62 = nixpkgs.lib.nixosSystem {
-        inherit (inputs) outputs;
-
-        system = "x86_64-linux";
-        modules = [ ./hosts/gp62 ];
+      nixosConfigurations = {
+        gp62 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/gp62
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              # home-manager.users.jdoe = import ./home.nix;
+            }
+          ];
+        };
       };
-
-      # homeConfigurations."nikolai@gp62" = {
-      #   system = "x86_64-linux";
-      #   modules = [ ];
-      # };
     };
 }
