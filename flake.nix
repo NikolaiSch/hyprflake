@@ -12,7 +12,6 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
       nixos-hardware,
       home-manager,
