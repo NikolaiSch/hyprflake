@@ -16,9 +16,11 @@
       nixos-hardware,
       home-manager,
       ...
-    }:
+    }@inputs:
     {
       nixosConfigurations.gp62 = nixpkgs.lib.nixosSystem {
+        inherit (inputs) outputs;
+
         system = "x86_64-linux";
         modules = [ ./hosts/gp62 ];
       };
