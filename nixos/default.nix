@@ -1,6 +1,4 @@
 {
-  import ./cachix.nix;
-
   imports = [
     
   ];
