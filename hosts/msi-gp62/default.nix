@@ -8,6 +8,8 @@
     ./disko.nix
   ];
 
+  boot.loader.grub.devices = "nodev";
+
   # disk = 
   # ./disko.nix
   # ;

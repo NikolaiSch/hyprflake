@@ -1,7 +1,7 @@
-{
+{ disks ? [ "/dev/sda" ], ... }: {
   disko.devices = {
     disk.main = {
-      device = "/dev/sda";
+      device = disks;
       type = "disk";
       content = {
         type = "gpt";
@@ -35,7 +35,7 @@
     nodev."/" = {
       fsType = "tmpfs";
       mountOptions = [
-        "size=2G"
+        "size=8G"
         "defaults"
         "mode=755"
       ];
