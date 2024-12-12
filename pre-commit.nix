@@ -10,4 +10,5 @@
           settings.hooks.nil.enable = true;
           settings.hooks.ripsecrets.enable = true;
           settings.hooks.treefmt.enable = true;
-          settings.hooks.trufflehog.enable = true;}
+          settings.hooks.trufflehog.enable = true;
+          }
