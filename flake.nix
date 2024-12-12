@@ -50,6 +50,7 @@
           "msi-gp62" = helper.mkNixos {
             hostname = "msi-gp62";
             desktop = "hyprland";
+            hostPlatform = "x86_64-linux";
           };
         };
       };

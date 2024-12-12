@@ -3,7 +3,13 @@
   outputs,
   stateVersion,
   ...
-}: {
+}: let
+  laptopHostnames = [
+    "msi-gp62"
+  ];
+  isLaptopHost = hostname: laptopHostnames.any (x: x == hostname);
+  isISOHost = hostname: builtins.substring 0 4 hostname == "iso-";
+in {
   # Helper function for generating home-manager configs
   mkHome = {
     hostname,
@@ -11,14 +17,15 @@
     desktop ? "hyprland",
     platform ? "x86_64-linux",
   }: let
-    isISO = builtins.substring 0 4 hostname == "iso-";
+    isLaptop = isLaptopHost hostname;
+    isISO = isISOHost hostname;
     isInstall = !isISO;
-    isLaptop = hostname == "msi-gp62";
-    isWorkstation = desktop != "";
+    isWorkstation = "" != desktop;
   in
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${platform};
       extraSpecialArgs = {
+        hostPlatform = platform;
         inherit
           inputs
           outputs
@@ -41,12 +48,11 @@
     hostname,
     username ? "vii",
     desktop ? "hyprland",
-    platform ? "x86_64-linux",
+    hostPlatform ? "x86_64-linux",
   }: let
-    isISO = builtins.substring 0 4 hostname == "iso-";
+    isLaptop = isLaptopHost hostname;
+    isISO = isISOHost hostname;
     isInstall = !isISO;
-    isLaptop =
-      hostname == "msi-gp62";
     isWorkstation = "" != desktop;
     tailNet = "vii.net";
   in
@@ -57,7 +63,6 @@
           outputs
           desktop
           hostname
-          platform
           username
           stateVersion
           isInstall
@@ -80,19 +85,17 @@
         ++ inputs.nixpkgs.lib.optionals isISO [cd-dvd];
     };
 
-  mkDarwin =
-    {
-      desktop,
-      hostname ? "nikbook",
-      username ? "vii",
-      platform ? "aarch64-darwin",
-    }:
-    let
-      isISO = false;
-      isInstall = true;
-      isLaptop = true;
-      isWorkstation = true;
-    in
+  mkDarwin = {
+    desktop,
+    hostname ? "nikbook",
+    username ? "vii",
+    hostPlatform ? "aarch64-darwin",
+  }: let
+    isISO = false;
+    isInstall = true;
+    isLaptop = true;
+    isWorkstation = true;
+  in
     inputs.nix-darwin.lib.darwinSystem {
       specialArgs = {
         inherit
@@ -100,15 +103,15 @@
           outputs
           desktop
           hostname
-          platform
           username
           isInstall
           isISO
           isLaptop
           isWorkstation
+          hostPlatform
           ;
       };
-      modules = [ ../darwin ];
+      modules = [../darwin];
     };
 
   forAllSystems = inputs.nixpkgs.lib.genAttrs [
