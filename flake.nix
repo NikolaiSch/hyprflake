@@ -28,12 +28,14 @@
       flake-parts,
       treefmt-nix,
       nixos-hardware,
+      pre-commit-hooks,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
+
       imports = [
-        inputs.treefmt-nix.flakeModule
-        inputs.pre-commit-hooks.flakeModule
+        treefmt-nix.flakeModule
+        pre-commit-hooks.flakeModule
       ];
 
       flake = {
@@ -43,9 +45,10 @@
             modules = [
               nixos-hardware.nixosModules.msi-gl62
               home-manager.nixosModules.home-manager
-              ./hosts/msi-gp62
+              # ./hosts/msi-gp62
               # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             ];
+            system.stateVersion = "24.11";
           };
         };
       };
