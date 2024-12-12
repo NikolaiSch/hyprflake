@@ -32,6 +32,10 @@
       helper = import ./lib { inherit inputs outputs stateVersion; };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
+      
       flake = {
         nixosConfigurations = {
           "msi-gp62" = nixpkgs.lib.nixosSystem {
@@ -57,7 +61,7 @@
         { pkgs, config, ... }:
         let 
           treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-
+          in
         {
           formatter = treefmtEval.config.build.wrapper;
           # for `nix flake check`
@@ -66,6 +70,8 @@
             statix = pkgs.statix;
             deadnix = pkgs.deadnix;
           };
+          
+          treefmt = import ./treefmt.nix { inherit pkgs; };
 
           
         };
