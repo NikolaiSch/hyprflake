@@ -12,6 +12,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
@@ -21,6 +23,7 @@
       nixos-hardware,
       home-manager,
       flake-parts,
+      treefmt-nix,
       ...
     }@inputs:
     let
@@ -52,11 +55,19 @@
 
       perSystem =
         { pkgs, config, ... }:
-        {
-          formatter = pkgs.nixfmt-rfc-style;
+        let 
+          treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
-          checks.statix = pkgs.statix;
-          checks.deadnix = pkgs.deadnix;
+        {
+          formatter = treefmtEval.config.build.wrapper;
+          # for `nix flake check`
+          checks = {
+            formatting = treefmtEval.config.build.check self;
+            statix = pkgs.statix;
+            deadnix = pkgs.deadnix;
+          };
+
+          
         };
     };
 
