@@ -48,8 +48,8 @@
               # ./hosts/msi-gp62
               # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             ];
-            system.stateVersion = "24.11";
           };
+
         };
       };
 
@@ -86,5 +86,6 @@
 
         };
     };
+            system.stateVersion = "24.11";
 
 }
