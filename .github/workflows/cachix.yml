@@ -7,6 +7,14 @@ jobs:
   omnix-cachix:
     runs-on: ubuntu-latest
     steps:
+    - name: Cachix
+      # You may pin to the exact commit or the version.
+      # uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc
+    - uses: cachix/cachix-action@v15
+      with:
+        name: hyprflake
+        authToken: ${{secrets.CACHIX_AUTH_TOKEN}}
+        useDaemon: true # optional, default is true
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v25
       with:
