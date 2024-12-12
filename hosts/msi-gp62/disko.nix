@@ -1,4 +1,4 @@
-{ disks ? [ "/dev/sda" ], ... }: {
+{disks ? ["/dev/sda"], ...}: {
   disko.devices = {
     disk.main = {
       device = disks;
@@ -18,7 +18,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
+              mountOptions = ["umask=0077"];
             };
           };
           nix = {

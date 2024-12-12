@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixfmt.enable = pkgs.lib.meta.availableOn pkgs.stdenv.buildPlatform pkgs.nixfmt-rfc-style.compiler;
   programs.nixfmt.package = pkgs.nixfmt-rfc-style;
 
@@ -13,10 +12,4 @@
   programs.mdformat.package = pkgs.mdformat;
 
   programs.yamlfmt.enable = true;
-
-  programs.shellcheck.enable = true;
-  settings.formatter.shellcheck.options = [
-    "-s"
-    "bash"
-  ];
 }
