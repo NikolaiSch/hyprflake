@@ -1,5 +1,7 @@
 {
+  import ./cachix.nix;
+
   imports = [
-    ./cachix.nix
+    
   ];
 }
