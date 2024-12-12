@@ -10,15 +10,14 @@
     {
       hostname,
       username ? "vii",
-      desktop ? null,
+      desktop ? hyprland,
       platform ? "x86_64-linux",
     }:
     let
       isISO = builtins.substring 0 4 hostname == "iso-";
       isInstall = !isISO;
-      isLaptop =
-        hostname != "vader" && hostname != "phasma" && hostname != "revan" && hostname != "malak";
-      isLima = hostname == "blackace" || hostname == "defender" || hostname == "fighter";
+      isLaptop = hostname == "msi-gp62";
+      isVm = hostname == "vm";
       isWorkstation = builtins.isString desktop;
     in
     inputs.home-manager.lib.homeManagerConfiguration {
