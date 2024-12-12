@@ -14,6 +14,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
+
+
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs =
@@ -28,6 +33,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
+        inputs.git-hooks-nix.flakeModule
       ];
 
       flake = {
@@ -66,6 +72,8 @@
           };
 
           treefmt = import ./treefmt.nix { inherit pkgs; };
+
+          pre-commit = import ./pre-commit.nix;
 
         };
     };
