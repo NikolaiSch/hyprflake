@@ -73,7 +73,7 @@
 
           treefmt = import ./treefmt.nix { inherit pkgs; };
 
-          pre-commit = import ./pre-commit.nix;
+          pre-commit = import ./pre-commit.nix ;
 
         };
     };
