@@ -11,6 +11,5 @@ jobs:
     - uses: cachix/install-nix-action@v25
       with:
         nix_path: nixpkgs=channel:nixos-unstable
-    - run: "nix run github:juspay/omnix ci --results=om.json"
-    - run: "nix run github:juspay/cachix-push -- --cache hyprflake --subflake ROOT --prefix 'v2' < om.json"
+    - run: "nix run github:juspay/omnix ci | cachix push hyprflake"
 
