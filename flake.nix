@@ -35,7 +35,7 @@
 
       imports = [
         inputs.treefmt-nix.flakeModule
-        inputs.git-hooks.flakeModule
+        # inputs.git-hooks.flakeModule
       ];
 
       flake = {
@@ -88,6 +88,5 @@
 
         };
     };
-            system.stateVersion = "24.11";
 
 }
