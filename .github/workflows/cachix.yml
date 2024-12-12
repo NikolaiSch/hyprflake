@@ -1,0 +1,20 @@
+name: "omnix-cachix"
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+jobs:
+  omnix-cachix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v14
+      with:
+        name: hyprflake
+        # If you chose API tokens for write access OR if you have a private cache
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - run: nix run github:juspay/omnix ci | cachix use hyprflake
+    - run: nix-shell --run "echo OK"
