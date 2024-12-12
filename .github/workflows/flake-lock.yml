@@ -1,9 +1,7 @@
 name: CI
-
 on:
   push:
   pull_request:
-
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -17,6 +15,5 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
       - name: Run `nix build`
         run: nix build .
-        
       - name: Update Nix Flake Lock
         uses: DeterminateSystems/update-flake-lock@v24

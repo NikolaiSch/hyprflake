@@ -17,7 +17,6 @@
       isISO = builtins.substring 0 4 hostname == "iso-";
       isInstall = !isISO;
       isLaptop = hostname == "msi-gp62";
-      isVm = hostname == "vm";
       isWorkstation = builtins.isString desktop;
     in
     inputs.home-manager.lib.homeManagerConfiguration {
