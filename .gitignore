@@ -1,3 +1,4 @@
 nixbuildKeys
 nixAws.pem
 .DS_Store
+out.json
