@@ -83,6 +83,18 @@
         };
 
         treefmt = import ./treefmt.nix {inherit pkgs;};
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            # pkgs.agenix
+            pkgs.age
+            pkgs.ssh-to-age
+          ];
+
+          shellHook = ''
+            bash -x 'echo YOU ARE IN SOPS MODE'
+          '';
+        };
       };
     };
 }
