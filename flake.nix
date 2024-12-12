@@ -30,18 +30,13 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
-
-        debug = true;
-
         nixosConfigurations = {
           "msi-gp62" = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               ./hosts/msi-gp62
-
               # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
               home-manager.nixosModules.home-manager
-
             ];
           };
         };
