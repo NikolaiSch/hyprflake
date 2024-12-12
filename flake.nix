@@ -15,8 +15,8 @@
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    git-hooks.inputs.nixpkgs.follows = "nixpkgs";
 
   };
 
@@ -28,14 +28,14 @@
       flake-parts,
       treefmt-nix,
       nixos-hardware,
-      pre-commit-hooks,
+      git-hooks,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
 
       imports = [
-        treefmt-nix.flakeModule
-        pre-commit-hooks.flakeModule
+        inputs.treefmt-nix.flakeModule
+        inputs.git-hooks.flakeModule
       ];
 
       flake = {
@@ -43,8 +43,9 @@
           "msi-gp62" = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              nixos-hardware.nixosModules.msi-gl62
-              home-manager.nixosModules.home-manager
+              inputs.nixos-hardware.nixosModules.msi-gl62
+              inputs.home-manager.nixosModules.home-manager
+              
               # ./hosts/msi-gp62
               # "https://nix-community.github.io/home-manager/index.xhtml" # ch-nix-flakes
             ];
@@ -70,16 +71,17 @@
         }:
         let
           treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          pre-commit-run = git-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = import ./pre-commit.nix;
+          };
         in
         {
           formatter = treefmtEval.config.build.wrapper;
           # for `nix flake check`
           checks = {
             formatting = treefmtEval.config.build.check self;
-            pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = import ./pre-commit.nix;
-            };
+            pre-commit = pre-commit-run;
           };
 
           treefmt = import ./treefmt.nix { inherit pkgs; };
