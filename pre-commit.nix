@@ -13,17 +13,16 @@
   treefmt.enable = true;
   trufflehog.enable = true;
 
-  check-yaml.always_run = true;
-  check-json.always_run = true;
-  credo.always_run = true;
-  detect-aws-credentials.always_run = true;
-  detect-private-keys.always_run = true;
-  flake-checker.always_run = true;
-  gptcommit.always_run = true;
-  hlint.always_run = true;
-  markdownlint.always_run = true;
-  nil.always_run = true;
-  ripsecrets.always_run = true;
-  treefmt.always_run = true;
-  trufflehog.always_run = true;
+  # check-yaml.always_run = true;
+  # check-json.always_run = true;
+  # credo.always_run = true;
+  # detect-aws-credentials.always_run = true;
+  # detect-private-keys.always_run = true;
+  # flake-checker.always_run = true;
+  # hlint.always_run = true;
+  # markdownlint.always_run = true;
+  # nil.always_run = true;
+  # ripsecrets.always_run = true;
+  # treefmt.always_run = true;
+  # trufflehog.always_run = true;
 }
