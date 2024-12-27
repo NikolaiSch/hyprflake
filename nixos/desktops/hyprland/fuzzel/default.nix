@@ -1,6 +1,7 @@
 { hostname, lib, pkgs, ... }:
 let
-  fontSize = if (hostname == "phasma" || hostname =="vader") then "30" else "18";
+  # TODO! Module
+  fontSize = "18";
 in
 {
   # Fuzzel powered app launcher, emoji picker and clipboard manager for Hyprland
@@ -15,24 +16,24 @@ in
   programs = {
     fuzzel = {
       enable = true;
-      catppuccin.enable = true;
-      settings = {
-        main = {
-          filter-desktop = true;
-          font = "FiraCode Nerd Font Mono:size=${fontSize}";
-          lines = 16;
-          terminal = "foot";
-          tabs = 2;
-          width = 32;
-          horizontal-pad = 32;
-          vertical-pad = 32;
-          inner-pad = 32;
-        };
-        border = {
-          width = 2;
-          radius = 8;
-        };
-      };
+      # catppuccin.enable = true;
+      # settings = {
+      #   main = {
+      #     filter-desktop = true;
+      #     font = "FiraCode Nerd Font Mono:size=${fontSize}";
+      #     lines = 16;
+      #     terminal = "foot";
+      #     tabs = 2;
+      #     width = 32;
+      #     horizontal-pad = 32;
+      #     vertical-pad = 32;
+      #     inner-pad = 32;
+      #   };
+      #   border = {
+      #     width = 2;
+      #     radius = 8;
+      #   };
+      # };
     };
   };
   services = {
