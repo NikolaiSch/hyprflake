@@ -52,6 +52,19 @@
             desktop = "hyprland";
             hostPlatform = "x86_64-linux";
           };
+          #  - nix build .#nixosConfigurations.{iso-console|iso-gnome}.config.system.build.isoImage 
+          "iso-hyprland" = helper.mkNixos {
+            hostname = "iso-hyprland";
+            desktop = "hyprland";
+            hostPlatform = "x86_64-linux";
+          };
+        };
+
+        homeConfigurations = {
+          "vii@msi-gp62" = helper.mkHome {
+            hostname = "msi-gp62";
+          };
+
         };
       };
 
@@ -89,6 +102,7 @@
             # pkgs.agenix
             pkgs.age
             pkgs.ssh-to-age
+            pkgs.deploy-rs
           ];
 
           shellHook = ''
